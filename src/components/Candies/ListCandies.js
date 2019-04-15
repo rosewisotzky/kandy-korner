@@ -12,11 +12,15 @@ export default class ListCandies extends Component {
                     // I think the key just let's us know ~which~ candy object in our array we are messin' with. 
                     <div key={candy.id}>
                     {
-                        /* Then our old friend dot notation swings in and we use that to access the names anddescription values of our object. */
+                        /* Then our old friend dot notation swings in and we use that to access the names and description values of our object. */
                     }
                         <p>Name: {candy.name}</p>
+                        of type{
+                            // Over here we're using find to loop through our candyTypes. For each object we're looping over, we are checking to find the one where the candy primary key matches the foreign key on candyType and building our JSX to mount it on the DOM.
+                            this.props.candyTypes.find(candyType => candyType.id === candy.candyTypeId)
+                            .type
+                        }
                         <p>Description: {candy.description}</p>
-                        <p>Candy Type: {candy.candyType.type}</p>
                     </div>
                 )
             }

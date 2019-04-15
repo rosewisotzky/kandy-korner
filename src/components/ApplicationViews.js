@@ -17,9 +17,13 @@ export default class ApplicationViews extends Component {
 componentDidMount () {
     const newState = {}
 
-    fetch("http://localhost:5002/individualCandies?_expand=candyType")
+    // Here we are making our fetch calls to grab our data from the database. Since this exercise wants us to use find, we're doing two separate calls for candyTypes and Individual candies. We are using newState to push those objects into our empty arrays that are declared above in state. 
+    fetch("http://localhost:5002/individualCandies")
     .then(r => r.json())
     .then(candies => newState.candies = candies)
+    fetch("http://localhost:5002/candyTypes")
+    .then(r => r.json())
+    .then(candyTypes => newState.candyTypes = candyTypes)
     .then(() => fetch("http://localhost:5002/employees")
     .then(r => r.json()))
     .then(employees => newState.employees = employees)
@@ -40,8 +44,9 @@ componentDidMount () {
                 <Route path="/employees" render={(props)=> {
                     return <EmployeeList employees={this.state.employees} />
                 }} />
+                {/* Here we're setting our route path in our navbar to access the candies resource. We're accessing the state in our this.state.candies and setting the candyTypes as an argument. */}
                 <Route path="/candies" render={(props)=> {
-                    return <CandyList candies={this.state.candies} />
+                    return <CandyList candies={this.state.candies} candyTypes={this.state.candyTypes} />
                 }} />
             </React.Fragment>
         )
