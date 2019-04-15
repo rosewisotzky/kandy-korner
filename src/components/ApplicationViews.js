@@ -6,32 +6,31 @@ import CandyList from './Candies/ListCandies'
 
 
 export default class ApplicationViews extends Component {
-// Here we are creating arrays to represent information that would be normally displayed in our API.
-    locationsfromAPI = [
-        {id: 1, location: "Hell", address: "100 Good Job Drive"},
-        {id: 1, location: "Deep Inside of Your Soul", address: "100 Great Job Drive"}
-    ]
-    employeesFromAPI = [
-        {id: 1, name: "Me"},
-        {id: 2, name: "Myself"},
-        {id: 3, name: "I"}
-    ]
-    candyTypes = [
-        {id: 1, type: "DELICIOUS AND VERY GOOD"},
-        {id: 2, type: "I guess this is okay"}
-    ]
-    individualCandiesFromAPI = [
-        {id: 1, candyTypeId: 2, name: "Werther's Original", description: "Old people candy"},
-        {id: 2, candyTypeId: 1, name: "Altoids", description: "Also old people candy"}
-    ]
+
     // The state is an object! This is React, we're all objects here. It represents the values of the properties we use to render a component. Here, we are accessing our arrays we made above and using this to tell us that it's in the same object. 
     state = {
-        locations: this.locationsfromAPI,
-        employees: this.employeesFromAPI,
-        candyTypes: this.candyTypesFromAPI,
-        candies: this.individualCandiesFromAPI
+        locations: [],
+        employees: [],
+        candyTypes: [],
+        candies: []
     }
+componentDidMount () {
+    const newState = {}
 
+    fetch("http://localhost:5002/individualCandies?_expand=candyType")
+    .then(r => r.json())
+    .then(candies => newState.candies = candies)
+    .then(() => fetch("http://localhost:5002/employees")
+    .then(r => r.json()))
+    .then(employees => newState.employees = employees)
+    .then(() => fetch("http://localhost:5002/locations")
+    .then(r => r.json()))
+    .then(locations => newState.locations = locations)
+    .then(() => fetch ("http://localhost:5002/owners")
+    .then(r => r.json()))
+    .then(owners => newState.owners = owners)
+    .then(() => this.setState(newState))
+}
     render () {
         return (
             <React.Fragment>

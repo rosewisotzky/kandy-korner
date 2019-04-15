@@ -16,6 +16,7 @@ export default class ListCandies extends Component {
                     }
                         <p>Name: {candy.name}</p>
                         <p>Description: {candy.description}</p>
+                        <p>Candy Type: {candy.candyType.type}</p>
                     </div>
                 )
             }
