@@ -3,7 +3,10 @@ import React, { Component } from 'react'
 import EmployeeList from './Employees/EmployeeList'
 import LocationsList from './storeLocations/ListLocations'
 import CandyList from './Candies/ListCandies'
-
+import LocationsManager from '../modules/LocationsManager'
+import EmployeeManager from '../modules/EmployeesManager'
+import IndividualCandyManager from '../modules/IndividualCandyManager'
+import CandyTypeManager from '../modules/CandyTypesManager'
 
 export default class ApplicationViews extends Component {
 
@@ -32,21 +35,14 @@ componentDidMount () {
     const newState = {}
 
     // Here we are making our fetch calls to grab our data from the database. Since this exercise wants us to use find, we're doing two separate calls for candyTypes and Individual candies. We are using newState to push those objects into our empty arrays that are declared above in state. 
-    fetch("http://localhost:5002/individualCandies")
-    .then(r => r.json())
+    IndividualCandyManager.getAll()
     .then(candies => newState.candies = candies)
-    fetch("http://localhost:5002/candyTypes")
-    .then(r => r.json())
+    CandyTypeManager.getAll()
     .then(candyTypes => newState.candyTypes = candyTypes)
-    .then(() => fetch("http://localhost:5002/employees")
-    .then(r => r.json()))
+    EmployeeManager.getAll()
     .then(employees => newState.employees = employees)
-    .then(() => fetch("http://localhost:5002/locations")
-    .then(r => r.json()))
+    LocationsManager.getAll()
     .then(locations => newState.locations = locations)
-    .then(() => fetch ("http://localhost:5002/owners")
-    .then(r => r.json()))
-    .then(owners => newState.owners = owners)
     .then(() => this.setState(newState))
 }
     render () {
