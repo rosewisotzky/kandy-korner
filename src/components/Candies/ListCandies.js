@@ -15,12 +15,13 @@ export default class ListCandies extends Component {
                         /* Then our old friend dot notation swings in and we use that to access the names and description values of our object. */
                     }
                         <p>Name: {candy.name}</p>
-                        of type{
+                        of type {
                             // Over here we're using find to loop through our candyTypes. For each object we're looping over, we are checking to find the one where the candy primary key matches the foreign key on candyType and building our JSX to mount it on the DOM.
                             this.props.candyTypes.find(candyType => candyType.id === candy.candyTypeId)
                             .type
                         }
                         <p>Description: {candy.description}</p>
+                        <button onClick={() => this.props.deleteCandy(candy.id)}>Delete</button>
                     </div>
                 )
             }

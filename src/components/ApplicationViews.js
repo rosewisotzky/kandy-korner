@@ -14,6 +14,20 @@ export default class ApplicationViews extends Component {
         candyTypes: [],
         candies: []
     }
+    // Here is our method for deleting candies. We are passing in our id argument. We make a DELETE fetch call to the id of the candy we're targeting. 
+    deleteCandy = id => {
+        return fetch(`http://localhost:5002/individualCandies/${id}`, {
+            method: "DELETE"
+        })
+        // Here, we have a series of chained .then statements. Our first one is taking the event and turning it into JSON. 
+        .then(e => e.json())
+        // This .then is accessing the individualCandies, and by doing that we can access the foreign key on it and it's values.
+        .then(() => fetch(`http://localhost:5002/individualCandies`))
+        .then(e => e.json())
+        .then(candies => this.setState({
+            candies:candies
+        }))
+    }
 componentDidMount () {
     const newState = {}
 
@@ -44,9 +58,9 @@ componentDidMount () {
                 <Route path="/employees" render={(props)=> {
                     return <EmployeeList employees={this.state.employees} />
                 }} />
-                {/* Here we're setting our route path in our navbar to access the candies resource. We're accessing the state in our this.state.candies and setting the candyTypes as an argument. */}
+                {/* Here we're setting our route path in our navbar to access the candies resource. We're accessing the state in our this.state.candies and setting the candyTypes as an argument. W */}
                 <Route path="/candies" render={(props)=> {
-                    return <CandyList candies={this.state.candies} candyTypes={this.state.candyTypes} />
+                    return <CandyList deleteCandy={this.deleteCandy}candies={this.state.candies} candyTypes={this.state.candyTypes} />
                 }} />
             </React.Fragment>
         )
