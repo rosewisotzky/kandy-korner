@@ -33,12 +33,6 @@
   ],
   "individualCandies": [
     {
-      "id": 2,
-      "candyTypeId": 1,
-      "name": "Werther's Originals",
-      "description": "Old people candy"
-    },
-    {
       "id": 3,
       "candyTypeId": 2,
       "name": "Mike and Ikes",

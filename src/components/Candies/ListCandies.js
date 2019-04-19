@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import { Link } from "react-router-dom";
+import './candies.css'
 
 // Welcome to ListCandies! Or should I say ListKandies? Over here we are going to use props and render the HTML elements that we're calling over in KandyKorner.js . Props carries those changes we make and tells state that this is what we want on our DOM.
 export default class ListCandies extends Component {
@@ -11,7 +12,7 @@ export default class ListCandies extends Component {
                 // Over here we are using props to track what changes we're making to state. We access the key value we set in our state to get to our candies. Then we use map to loop through the objects in our array of candies. 
                 this.props.candies.map(candy =>
                     // I think the key just let's us know ~which~ candy object in our array we are messin' with. 
-                    <div key={candy.id}>
+                    <div key={candy.id} className="content">
                     {
                         /* Then our old friend dot notation swings in and we use that to access the names and description values of our object. */
                     }
@@ -22,6 +23,7 @@ export default class ListCandies extends Component {
                             .type
                         }
                         <p>Description: {candy.description}</p>
+                        <Link className="nav-link" to={`/candies/${candy.id}`}>Details</Link>
                         <button onClick={() => this.props.deleteCandy(candy.id)}>Delete</button>
                     </div>
                 )
