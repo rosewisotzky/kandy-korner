@@ -9,6 +9,7 @@ export default class LocationList extends Component {
                     <div key={location.id}>
                     <h4>{location.location}</h4>
                     <p>{location.address}</p>
+                    <button onClick = {()=>this.props.deleteLocation(location.id)}>Delete</button>
                     </div>)
             }
             </section>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 // Welcome to ListCandies! Or should I say ListKandies? Over here we are going to use props and render the HTML elements that we're calling over in KandyKorner.js . Props carries those changes we make and tells state that this is what we want on our DOM.
 export default class ListCandies extends Component {
     render () {
