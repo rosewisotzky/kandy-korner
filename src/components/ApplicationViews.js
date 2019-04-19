@@ -7,7 +7,9 @@ import LocationsManager from '../modules/LocationsManager'
 import EmployeeManager from '../modules/EmployeesManager'
 import IndividualCandyManager from '../modules/IndividualCandyManager'
 import CandyTypeManager from '../modules/CandyTypesManager'
-
+import LocationDetail from './storeLocations/LocationDetail'
+import EmployeeDetail from './Employees/EmployeeDetail'
+import CandyDetail from './Candies/CandyDetail'
 export default class ApplicationViews extends Component {
 
     // The state is an object! This is React, we're all objects here. It represents the values of the properties we use to render a component. Here, we are accessing our arrays we made above and using this to tell us that it's in the same object. 
@@ -31,6 +33,31 @@ export default class ApplicationViews extends Component {
             candies:candies
         }))
     }
+    deleteEmployee = id => {
+        return fetch(`http://localhost:5002/employees/${id}`, {
+            method: "DELETE"
+        })
+        // Here, we have a series of chained .then statements. Our first one is taking the event and turning it into JSON. 
+        .then(e => e.json())
+        // This .then is accessing the individualCandies, and by doing that we can access the foreign key on it and it's values.
+        .then(() => fetch(`http://localhost:5002/employees`))
+        .then(e => e.json())
+        .then(employees => this.setState({
+            employees: employees
+        }))
+    }
+    deleteLocation = id => {
+        return fetch(`http://localhost:5002/locations/${id}`, {
+            method: "DELETE"
+        })
+        .then(e => e.json())
+        .then(() => fetch(`http://localhost:5002/locations`))
+        .then(e => e.json())
+        .then(locations => this.setState({
+            locations: locations
+        })
+        )
+    }
 componentDidMount () {
     const newState = {}
 
@@ -49,16 +76,46 @@ componentDidMount () {
         return (
             <React.Fragment>
                 <Route exact path="/" render={(props)=> {
-                    return <LocationsList locations={this.state.locations} />
+                    return <LocationsList  deleteLocation={this.deleteLocation} locations={this.state.locations} />
                 }} />
-                <Route path="/employees" render={(props)=> {
-                    return <EmployeeList employees={this.state.employees} />
+                <Route path="/locations/:locationId(\d+)" render={ (props)=>{
+                    let location = this.state.locations.find(location =>
+                        location.id === parseInt(props.match.params.locationId)
+                        )
+                        if (!location) {
+                            location = {id:404, name: "404" }
+                        }
+                        return <LocationDetail location = { location }
+                        deleteLocation = {this.deleteLocation} />
                 }} />
+                <Route exact path="/employees" render={(props)=> {
+                    return <EmployeeList deleteEmployee={this.deleteEmployee}employees={this.state.employees} />
+                }} />
+                <Route path="/employees/:employeeId(\d+)" render={(props)=> {
+                    let employee = this.state.employees.find(employee =>
+                        employee.id === parseInt(props.match.params.employeeId)
+                        )
+                        if (!employee) {
+                            employee = {id: 404, name: "404"}
+                        }    
+                        return <EmployeeDetail employee={ employee }  
+                        deleteEmployee={ this.deleteEmployee } />        
+                 }} />
+
                 {/* Here we're setting our route path in our navbar to access the candies resource. We're accessing the state in our this.state.candies and setting the candyTypes as an argument. W */}
-                <Route path="/candies" render={(props)=> {
+                <Route exact path="/candies" render={(props)=> {
                     return <CandyList deleteCandy={this.deleteCandy}candies={this.state.candies} candyTypes={this.state.candyTypes} />
                 }} />
-            </React.Fragment>
+                <Route path="/candies/:candyId(\d+)" render={(props) => {
+                    let candy = this.state.candies.find(candy => 
+                        candy.id === parseInt(props.match.params.candyId))
+                        if (!candy) {
+                            candy = {id:404, name: "404"}
+                        }
+                        return <CandyDetail candy={ candy }
+                        deleteCandy={ this.deleteCandy } />
+                }} />
+                </React.Fragment>
         )
     }
 }

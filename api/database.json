@@ -1,46 +1,54 @@
 {
-    "locations": [
-        {
-        "id": 1,
-        "location": "Hell",
-        "address": "100 Good Job Drive"
-        },
-        {
-        "id": 1,
-        "location": "Deep Inside of Your Soul",
-        "address": "100 Great Job Drive"
-        }
-    ],
-    "employees": [
-        {
-        "id": 1,
-        "name": "Me"
-        },
-        {
-        "id": 2,
-        "name": "Myself"
-        },
-        {
-        "id": 3,
-        "name": "I"
-        }
-    ],
-    "candyTypes": [
-        {
-        "id": 1,
-        "type": "DELICIOUS AND VERY GOOD"
-        },
-        {
-        "id": 2,
-        "type": "I guess this is okay"
-        }
-    ],
-    "individualCandies": [
-        {
-        "id": 2,
-        "candyTypeId": 1,
-        "name": "Altoids",
-        "description": "Also old people candy"
-        }
-    ]
+  "locations": [
+    {
+      "id": 1,
+      "name": "Hell",
+      "address": "100 Good Job Drive"
+    },
+    {
+      "id": 2,
+      "name": "Deep Inside of Your Soul",
+      "address": "100 Great Job Drive"
+    }
+  ],
+  "employees": [
+    {
+      "id": 2,
+      "name": "Myself"
+    },
+    {
+      "id": 3,
+      "name": "I"
+    }
+  ],
+  "candyTypes": [
+    {
+      "id": 1,
+      "type": "DELICIOUS AND VERY GOOD"
+    },
+    {
+      "id": 2,
+      "type": "I guess this is okay"
+    }
+  ],
+  "individualCandies": [
+    {
+      "id": 3,
+      "candyTypeId": 2,
+      "name": "Mike and Ikes",
+      "description": "Also old people candy"
+    },
+    {
+      "id": 4,
+      "candyTypeId": 1,
+      "name": "Altoids",
+      "description": "Also old people candy"
+    },
+    {
+      "id": 5,
+      "candyTypeId": 2,
+      "name": "Altoids",
+      "description": "Also old people candy"
+    }
+  ]
 }
