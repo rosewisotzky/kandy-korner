@@ -2,12 +2,12 @@
   "locations": [
     {
       "id": 1,
-      "location": "Hell",
+      "name": "Hell",
       "address": "100 Good Job Drive"
     },
     {
-      "id": 1,
-      "location": "Deep Inside of Your Soul",
+      "id": 2,
+      "name": "Deep Inside of Your Soul",
       "address": "100 Great Job Drive"
     }
   ],

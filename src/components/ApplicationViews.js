@@ -76,7 +76,7 @@ componentDidMount () {
         return (
             <React.Fragment>
                 <Route exact path="/" render={(props)=> {
-                    return <LocationsList locations={this.state.locations} />
+                    return <LocationsList  deleteLocation={this.deleteLocation} locations={this.state.locations} />
                 }} />
                 <Route path="/locations/:locationId(\d+)" render={ (props)=>{
                     let location = this.state.locations.find(location =>
